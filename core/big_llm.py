@@ -33,7 +33,7 @@ async def run_big_llm(
         f"devices={json.dumps(devices, ensure_ascii=False, separators=(',',':'))}\n"
         f"actions={json.dumps(actions, ensure_ascii=False, separators=(',',':'))}"
     )
-    out = await OllamaClient().chat(
+    out = OllamaClient().chat(
         SYSTEM,
         [{"role":"user","content":user_blob}],
         model=model

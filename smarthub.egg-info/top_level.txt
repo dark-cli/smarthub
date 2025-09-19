@@ -1,6 +1,0 @@
-app
-core
-data
-ha
-scripts
-utils

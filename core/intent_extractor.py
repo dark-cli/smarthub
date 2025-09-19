@@ -5,7 +5,7 @@ import re
 from typing import Dict, Any
 from core.llm_client import OllamaClient
 
-SMALL_MODEL = os.getenv("SMALL_MODEL", "qwen2.5:3b-instruct")
+SMALL_MODEL = os.getenv("SMALL_MODEL", "llama3.1:latest")
 SYSTEM = (
     "You guess the user's smart-home action using short keywords.\n"
     "ALWAYS return ONE LINE JSON with exactly these keys:\n"
@@ -33,5 +33,5 @@ async def extract_intents(message: str, context: Dict[str, Any]) -> str:
     ctx_txt = _clean(json.dumps(context, ensure_ascii=False, separators=(",", ":")))
     msg_txt = _clean(message)
     user = f"Context:{ctx_txt}\nUser:{msg_txt}"
-    out = await OllamaClient().chat(SYSTEM, [{"role": "user", "content": user}], model=SMALL_MODEL)
+    out = OllamaClient().chat(SYSTEM, [{"role": "user", "content": user}], model=SMALL_MODEL)
     return out.strip() if isinstance(out, str) else str(out)
